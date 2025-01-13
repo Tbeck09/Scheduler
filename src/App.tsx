@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
+
 // Define activity types as a constant object
 const ActivityTypes = {
     class: 'Class',    // Changed to proper display names
@@ -59,118 +60,123 @@ const WeeklySchedule = () => {
 
     const schedule: Schedule = {
         Monday: [
-            { time: '5:30-6:00', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
-            { time: '6:00-7:00', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
-            { time: '7:00-7:45', activity: 'Shower/Get Ready', type: 'routine', details: 'Personal care and preparation' },
-            { time: '7:45-8:45', activity: 'Breakfast & Transit', type: 'meals', details: 'Breakfast and travel to campus' },
-            { time: '9:05-10:00', activity: 'PD 2050', type: 'class', details: 'Swift Hall 516' },
-            { time: '10:00-11:00', activity: 'Study Block', type: 'study', details: 'Review PD 2050 material' },
-            { time: '11:15-12:10', activity: 'CS 4065', type: 'class', details: 'Swift Hall 800' },
-            { time: '12:15-1:00', activity: 'Lunch', type: 'meals', details: 'Balanced meal and short break' },
-            { time: '1:00-2:15', activity: 'Remote Work', type: 'work', details: 'Async work block' },
-            { time: '2:30-3:25', activity: 'CS 4071', type: 'class', details: 'Baldwin Hall 544' },
-            { time: '3:30-5:00', activity: 'Study Block', type: 'study', details: 'CS coursework focus' },
-            { time: '5:00-5:30', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
-            { time: '5:45-6:30', activity: 'Dinner', type: 'meals', details: 'Final meal of the day' },
-            { time: '6:30-8:30', activity: 'Personal Project', type: 'project', details: 'Coding and development' },
-            { time: '8:30-9:30', activity: 'Evening Routine', type: 'routine', details: 'Wind down activities' },
-            { time: '9:30-5:30', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
+            { time: '6:00am-6:30am', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
+            { time: '6:30am-7:00am', activity: 'Breakfast', type: 'meals', details: 'Morning meal' },
+            { time: '7:00am-8:00am', activity: 'Study Block', type: 'study', details: 'Morning study session' },
+            { time: '8:00am-9:00am', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
+            { time: '9:05am-10:00am', activity: 'PD 2050', type: 'class', details: 'Swift Hall 516' },
+            { time: '10:00am-11:00am', activity: 'Study Block', type: 'study', details: 'Review PD 2050 material' },
+            { time: '11:15am-12:10pm', activity: 'CS 4065', type: 'class', details: 'Swift Hall 800' },
+            { time: '12:15pm-12:45pm', activity: 'Lunch', type: 'meals', details: 'Quick meal' },
+            { time: '12:45pm-2:15pm', activity: 'Remote Work', type: 'work', details: 'Async work block' },
+            { time: '2:30pm-3:25pm', activity: 'CS 4071', type: 'class', details: 'Baldwin Hall 544' },
+            { time: '3:30pm-5:00pm', activity: 'Study Block', type: 'study', details: 'CS coursework focus' },
+            { time: '5:00pm-5:30pm', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
+            { time: '5:30pm-6:00pm', activity: 'Dinner', type: 'meals', details: 'Evening meal' },
+            { time: '6:00pm-8:00pm', activity: 'Remote Work', type: 'work', details: 'Extended work block' },
+            { time: '8:00pm-9:30pm', activity: 'Personal Project', type: 'project', details: 'Development work' },
+            { time: '9:30pm-10:00pm', activity: 'Leisure Time', type: 'leisure', details: 'Wind down' },
+            { time: '10:00pm-6:00am', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
         ],
         Tuesday: [
-            { time: '5:30-6:00', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
-            { time: '6:00-7:00', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
-            { time: '7:00-7:45', activity: 'Shower/Get Ready', type: 'routine', details: 'Personal care and preparation' },
-            { time: '7:45-8:45', activity: 'Breakfast & Planning', type: 'meals', details: 'Breakfast and day planning' },
-            { time: '9:00-12:15', activity: 'Remote Work', type: 'work', details: 'Focused async work block' },
-            { time: '12:30-1:50', activity: 'CS 3093C', type: 'class', details: 'Swift Hall 500' },
-            { time: '2:00-2:45', activity: 'Lunch', type: 'meals', details: 'Balanced meal and break' },
-            { time: '2:45-4:45', activity: 'Study Block', type: 'study', details: 'Software Engineering focus' },
-            { time: '5:00-6:20', activity: 'CS 4092', type: 'class', details: 'Baldwin Hall 544' },
-            { time: '6:30-7:00', activity: 'Dinner', type: 'meals', details: 'Final meal of the day' },
-            { time: '7:00-8:30', activity: 'Personal Project', type: 'project', details: 'Development work' },
-            { time: '8:30-9:30', activity: 'Evening Routine', type: 'routine', details: 'Wind down activities' },
-            { time: '9:30-5:30', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
+            { time: '6:00am-6:30am', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
+            { time: '6:30am-7:00am', activity: 'Breakfast', type: 'meals', details: 'Morning meal' },
+            { time: '7:00am-8:00am', activity: 'Study Block', type: 'study', details: 'Morning study session' },
+            { time: '8:00am-9:00am', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
+            { time: '9:00am-12:00pm', activity: 'Remote Work', type: 'work', details: 'Focused work block' },
+            { time: '12:30pm-1:50pm', activity: 'CS 3093C', type: 'class', details: 'Swift Hall 500' },
+            { time: '2:00pm-2:30pm', activity: 'Lunch', type: 'meals', details: 'Quick meal' },
+            { time: '2:30pm-4:30pm', activity: 'Study Block', type: 'study', details: 'Software Engineering focus' },
+            { time: '4:30pm-5:00pm', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
+            { time: '5:00pm-5:30pm', activity: 'Dinner', type: 'meals', details: 'Evening meal' },
+            { time: '5:30pm-6:20pm', activity: 'CS 4092', type: 'class', details: 'Baldwin Hall 544' },
+            { time: '6:30pm-8:30pm', activity: 'Study Block', type: 'study', details: 'Evening study session' },
+            { time: '8:30pm-9:30pm', activity: 'Leisure Time', type: 'leisure', details: 'Free time' },
+            { time: '10:00pm-6:00am', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
         ],
         Wednesday: [
-            { time: '5:30-6:00', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
-            { time: '6:00-7:00', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
-            { time: '7:00-7:45', activity: 'Shower/Get Ready', type: 'routine', details: 'Personal care and preparation' },
-            { time: '7:45-8:45', activity: 'Breakfast & Study', type: 'meals', details: 'Breakfast and review' },
-            { time: '9:00-11:00', activity: 'Remote Work', type: 'work', details: 'Async work block' },
-            { time: '11:15-12:10', activity: 'CS 4065', type: 'class', details: 'Swift Hall 800' },
-            { time: '12:15-1:00', activity: 'Lunch', type: 'meals', details: 'Balanced meal' },
-            { time: '1:00-2:15', activity: 'Study Block', type: 'study', details: 'Coursework focus' },
-            { time: '2:30-3:25', activity: 'CS 4071', type: 'class', details: 'Baldwin Hall 544' },
-            { time: '3:30-5:00', activity: 'Study Block', type: 'study', details: 'CS coursework focus' },
-            { time: '5:00-5:30', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
-            { time: '5:45-6:30', activity: 'Dinner', type: 'meals', details: 'Final meal of the day' },
-            { time: '6:30-8:30', activity: 'Leisure Time', type: 'leisure', details: 'Free time' },
-            { time: '8:30-9:30', activity: 'Evening Routine', type: 'routine', details: 'Wind down activities' },
-            { time: '9:30-5:30', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
+            { time: '6:00am-6:30am', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
+            { time: '6:30am-7:00am', activity: 'Breakfast', type: 'meals', details: 'Morning meal' },
+            { time: '7:00am-8:00am', activity: 'Study Block', type: 'study', details: 'Morning study session' },
+            { time: '8:00am-9:00am', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
+            { time: '9:00am-11:00am', activity: 'Remote Work', type: 'work', details: 'Focused work block' },
+            { time: '11:15am-12:10pm', activity: 'CS 4065', type: 'class', details: 'Swift Hall 800' },
+            { time: '12:15pm-12:45pm', activity: 'Lunch', type: 'meals', details: 'Quick meal' },
+            { time: '12:45pm-2:15pm', activity: 'Study Block', type: 'study', details: 'Coursework focus' },
+            { time: '2:30pm-3:25pm', activity: 'CS 4071', type: 'class', details: 'Baldwin Hall 544' },
+            { time: '3:30pm-5:00pm', activity: 'Study Block', type: 'study', details: 'CS coursework focus' },
+            { time: '5:00pm-5:30pm', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
+            { time: '5:30pm-6:00pm', activity: 'Dinner', type: 'meals', details: 'Evening meal' },
+            { time: '6:00pm-8:00pm', activity: 'Remote Work', type: 'work', details: 'Extended work block' },
+            { time: '8:00pm-9:00pm', activity: 'Personal Project', type: 'project', details: 'Development work' },
+            { time: '9:00pm-10:00pm', activity: 'Leisure Time', type: 'leisure', details: 'Free time' },
+            { time: '10:00pm-6:00am', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
         ],
         Thursday: [
-            { time: '5:30-6:00', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
-            { time: '6:00-7:00', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
-            { time: '7:00-7:45', activity: 'Shower/Get Ready', type: 'routine', details: 'Personal care and preparation' },
-            { time: '7:45-8:45', activity: 'Breakfast & Planning', type: 'meals', details: 'Breakfast and day planning' },
-            { time: '9:00-12:15', activity: 'Remote Work', type: 'work', details: 'Focused async work block' },
-            { time: '12:30-1:50', activity: 'CS 3093C', type: 'class', details: 'Swift Hall 500' },
-            { time: '2:00-2:45', activity: 'Lunch', type: 'meals', details: 'Balanced meal and break' },
-            { time: '2:45-4:45', activity: 'Study Block', type: 'study', details: 'Software Engineering focus' },
-            { time: '5:00-6:20', activity: 'CS 4092', type: 'class', details: 'Baldwin Hall 544' },
-            { time: '6:30-7:00', activity: 'Dinner', type: 'meals', details: 'Final meal of the day' },
-            { time: '7:00-8:30', activity: 'Personal Project', type: 'project', details: 'Development work' },
-            { time: '8:30-9:30', activity: 'Evening Routine', type: 'routine', details: 'Wind down activities' },
-            { time: '9:30-5:30', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
+            { time: '6:00am-6:30am', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
+            { time: '6:30am-7:00am', activity: 'Breakfast', type: 'meals', details: 'Morning meal' },
+            { time: '7:00am-8:00am', activity: 'Study Block', type: 'study', details: 'Morning study session' },
+            { time: '8:00am-9:00am', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
+            { time: '9:00am-12:00pm', activity: 'Remote Work', type: 'work', details: 'Focused work block' },
+            { time: '12:30pm-1:50pm', activity: 'CS 3093C', type: 'class', details: 'Swift Hall 500' },
+            { time: '2:00pm-2:30pm', activity: 'Lunch', type: 'meals', details: 'Quick meal' },
+            { time: '2:30pm-4:30pm', activity: 'Study Block', type: 'study', details: 'Software Engineering focus' },
+            { time: '4:30pm-5:00pm', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
+            { time: '5:00pm-5:30pm', activity: 'Dinner', type: 'meals', details: 'Evening meal' },
+            { time: '5:30pm-6:20pm', activity: 'CS 4092', type: 'class', details: 'Baldwin Hall 544' },
+            { time: '6:30pm-8:30pm', activity: 'Study Block', type: 'study', details: 'Evening study session' },
+            { time: '8:30pm-9:30pm', activity: 'Personal Project', type: 'project', details: 'Development work' },
+            { time: '9:30pm-10:00pm', activity: 'Leisure Time', type: 'leisure', details: 'Wind down' },
+            { time: '10:00pm-6:00am', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
         ],
         Friday: [
-            { time: '5:30-6:00', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
-            { time: '6:00-7:00', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
-            { time: '7:00-7:45', activity: 'Shower/Get Ready', type: 'routine', details: 'Personal care and preparation' },
-            { time: '7:45-8:45', activity: 'Breakfast & Transit', type: 'meals', details: 'Breakfast and travel to campus' },
-            { time: '9:00-11:00', activity: 'Study Block', type: 'study', details: 'Review week\'s material' },
-            { time: '11:15-12:10', activity: 'CS 4065', type: 'class', details: 'Swift Hall 800' },
-            { time: '12:15-1:00', activity: 'Lunch', type: 'meals', details: 'Balanced meal and short break' },
-            { time: '1:00-2:15', activity: 'Remote Work', type: 'work', details: 'Async work block' },
-            { time: '2:30-3:25', activity: 'CS 4071', type: 'class', details: 'Baldwin Hall 544' },
-            { time: '3:30-5:00', activity: 'Study Block', type: 'study', details: 'CS coursework focus' },
-            { time: '5:00-5:30', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
-            { time: '5:45-6:30', activity: 'Dinner', type: 'meals', details: 'Final meal of the day' },
-            { time: '6:30-8:30', activity: 'Leisure Time', type: 'leisure', details: 'Free time for social activities' },
-            { time: '8:30-9:30', activity: 'Evening Routine', type: 'routine', details: 'Wind down activities' },
-            { time: '9:30-5:30', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
+            { time: '6:00am-6:30am', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
+            { time: '6:30am-7:00am', activity: 'Breakfast', type: 'meals', details: 'Morning meal' },
+            { time: '7:00am-8:00am', activity: 'Study Block', type: 'study', details: 'Morning study session' },
+            { time: '8:00am-9:00am', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
+            { time: '9:00am-11:00am', activity: 'Study Block', type: 'study', details: 'Extended morning study' },
+            { time: '11:15am-12:10pm', activity: 'CS 4065', type: 'class', details: 'Swift Hall 800' },
+            { time: '12:15pm-12:45pm', activity: 'Lunch', type: 'meals', details: 'Quick meal' },
+            { time: '12:45pm-2:15pm', activity: 'Remote Work', type: 'work', details: 'Async work block' },
+            { time: '2:30pm-3:25pm', activity: 'CS 4071', type: 'class', details: 'Baldwin Hall 544' },
+            { time: '3:30pm-5:00pm', activity: 'Study Block', type: 'study', details: 'CS coursework focus' },
+            { time: '5:00pm-5:30pm', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
+            { time: '5:30pm-6:00pm', activity: 'Dinner', type: 'meals', details: 'Evening meal' },
+            { time: '6:00pm-8:00pm', activity: 'Remote Work', type: 'work', details: 'Extended work block' },
+            { time: '8:00pm-9:30pm', activity: 'Personal Project', type: 'project', details: 'Development work' },
+            { time: '9:30pm-10:00pm', activity: 'Leisure Time', type: 'leisure', details: 'Wind down' },
+            { time: '10:00pm-6:00am', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
         ],
         Saturday: [
-            { time: '7:00-8:00', activity: 'Sleep Extended', type: 'sleep', details: 'Extra hour of rest' },
-            { time: '8:00-8:30', activity: 'Morning Routine', type: 'routine', details: 'Relaxed wake-up routine' },
-            { time: '8:30-9:30', activity: 'Weight Training', type: 'workout', details: 'Optional strength session' },
-            { time: '9:30-10:15', activity: 'Breakfast', type: 'meals', details: 'Relaxed breakfast' },
-            { time: '10:30-1:30', activity: 'Remote Work', type: 'work', details: 'Extended work block' },
-            { time: '1:30-2:15', activity: 'Lunch', type: 'meals', details: 'Balanced meal' },
-            { time: '2:30-4:30', activity: 'Study Block', type: 'study', details: 'Weekly review and assignments' },
-            { time: '4:30-5:00', activity: 'Evening Run', type: 'workout', details: 'Optional cardio' },
-            { time: '5:00-6:30', activity: 'Personal Project', type: 'project', details: 'Extended development time' },
-            { time: '6:30-7:00', activity: 'Dinner', type: 'meals', details: 'Final meal of the day' },
-            { time: '7:00-9:30', activity: 'Leisure Time', type: 'leisure', details: 'Free time for social activities' },
-            { time: '9:30-7:00', activity: 'Sleep', type: 'sleep', details: 'Extended rest period' }
+            { time: '7:00am-7:30am', activity: 'Morning Routine', type: 'routine', details: 'Wake up routine' },
+            { time: '7:30am-8:00am', activity: 'Breakfast', type: 'meals', details: 'Morning meal' },
+            { time: '8:00am-9:00am', activity: 'Study Block', type: 'study', details: 'Morning study' },
+            { time: '9:00am-10:00am', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
+            { time: '10:00am-12:00pm', activity: 'Study Block', type: 'study', details: 'Extended morning study' },
+            { time: '12:00pm-12:30pm', activity: 'Lunch', type: 'meals', details: 'Quick meal' },
+            { time: '12:30pm-4:00pm', activity: 'Remote Work', type: 'work', details: 'Extended work block' },
+            { time: '4:00pm-4:30pm', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
+            { time: '4:30pm-5:00pm', activity: 'Dinner', type: 'meals', details: 'Evening meal' },
+            { time: '5:00pm-7:00pm', activity: 'Study Block', type: 'study', details: 'Evening study session' },
+            { time: '7:00pm-8:30pm', activity: 'Personal Project', type: 'project', details: 'Extended development time' },
+            { time: '8:30pm-10:00pm', activity: 'Leisure Time', type: 'leisure', details: 'Free time for social activities' },
+            { time: '10:00pm-7:00am', activity: 'Sleep', type: 'sleep', details: 'Extended rest period' }
         ],
         Sunday: [
-            { time: '7:00-8:00', activity: 'Sleep Extended', type: 'sleep', details: 'Extra hour of rest' },
-            { time: '8:00-8:30', activity: 'Morning Routine', type: 'routine', details: 'Relaxed wake-up routine' },
-            { time: '8:30-9:15', activity: 'Breakfast', type: 'meals', details: 'Relaxed breakfast' },
-            { time: '9:30-12:30', activity: 'Remote Work', type: 'work', details: 'Extended work block' },
-            { time: '12:30-1:30', activity: 'Lunch', type: 'meals', details: 'Balanced meal' },
-            { time: '1:30-4:30', activity: 'Study Block', type: 'study', details: 'Week ahead preparation' },
-            { time: '4:30-5:00', activity: 'Evening Run', type: 'workout', details: 'Optional cardio' },
-            { time: '5:00-6:00', activity: 'Week Planning', type: 'routine', details: 'Prepare for week ahead' },
-            { time: '6:00-6:30', activity: 'Meal Prep', type: 'routine', details: 'Prepare meals for week' },
-            { time: '6:30-7:00', activity: 'Dinner', type: 'meals', details: 'Final meal of the day' },
-            { time: '7:00-8:30', activity: 'Personal Project', type: 'project', details: 'Development work' },
-            { time: '8:30-9:30', activity: 'Evening Routine', type: 'routine', details: 'Wind down activities' },
-            { time: '9:30-5:30', activity: 'Sleep', type: 'sleep', details: '8 hours of rest' }
-        ]
-    };
-
+            { time: '7:00am-7:30am', activity: 'Morning Routine', type: 'routine', details: 'Wake up routine' },
+            { time: '7:30am-8:00am', activity: 'Breakfast', type: 'meals', details: 'Morning meal' },
+            { time: '8:00am-9:00am', activity: 'Study Block', type: 'study', details: 'Morning study' },
+            { time: '9:00am-10:00am', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
+            { time: '10:00am-12:00pm', activity: 'Study Block', type: 'study', details: 'Extended morning study' },
+            { time: '12:00pm-12:30pm', activity: 'Lunch', type: 'meals', details: 'Quick meal' },
+            { time: '12:30pm-4:00pm', activity: 'Remote Work', type: 'work', details: 'Extended work block' },
+            { time: '4:00pm-4:30pm', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
+            { time: '4:30pm-5:00pm', activity: 'Dinner', type: 'meals', details: 'Evening meal' },
+            { time: '5:00pm-7:00pm', activity: 'Study Block', type: 'study', details: 'Evening study session' },
+            { time: '7:00pm-8:30pm', activity: 'Personal Project', type: 'project', details: 'Development work' },
+            { time: '8:30pm-10:00pm', activity: 'Leisure Time', type: 'leisure', details: 'Free time and wind down' },
+            { time: '10:00pm-7:00am', activity: 'Sleep', type: 'sleep', details: 'Extended rest period' }
+        ],}
 
 
     return (
@@ -182,7 +188,6 @@ const WeeklySchedule = () => {
                 </CardHeader>
                 <CardContent>
                     {/* Legend */}
-                    // First, let's modify how we use ActivityTypes in our legend rendering:
 
                     <div className="flex flex-wrap gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
                         {(Object.entries(activityColors) as [ActivityType, string][]).map(([type, color]) => (
@@ -229,6 +234,7 @@ const WeeklySchedule = () => {
                             <div>Exercise: 7.5 hours</div>
                             <div>Personal Project: 10 hours</div>
                             <div>Sleep: 56-60 hours</div>
+                            <div></div>
                         </div>
                     </div>
                 </CardContent>
