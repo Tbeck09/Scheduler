@@ -33,7 +33,7 @@ type Schedule = Record<DayOfWeek, Activity[]>;
 
 const WeeklySchedule = () => {
     // Define days in chronological order
-    // Define days with proper typing
+    // Define days with proper typingg
     const days: DayOfWeek[] = [
         'Monday',
         'Tuesday',
