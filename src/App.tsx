@@ -1,12 +1,63 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+
+// Define activity types as a constant object
+const ActivityTypes = {
+    class: 'Class',    // Changed to proper display names
+    study: 'Study',
+    work: 'Work',
+    workout: 'Workout',
+    meals: 'Meals',
+    project: 'Project',
+    routine: 'Routine',
+    sleep: 'Sleep',
+    leisure: 'Leisure'
+} as const;
+
+// Create a type from the ActivityTypes object
+type ActivityType = keyof typeof ActivityTypes;
+
+// Define the Activity interface with proper typing
+interface Activity {
+    time: string;
+    activity: string;
+    type: ActivityType;
+    details: string;
+}
+
+// Define valid days of the week
+type DayOfWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+
+// Define the Schedule type using Record utility type
+type Schedule = Record<DayOfWeek, Activity[]>;
 
 
 const WeeklySchedule = () => {
     // Define days in chronological order
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    // Define days with proper typing
+    const days: DayOfWeek[] = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+    ] as const;
 
-    const schedule = {
+    const activityColors: Record<ActivityType, string> = {
+        class: 'bg-green-200',
+        study: 'bg-yellow-100',
+        work: 'bg-purple-100',
+        workout: 'bg-red-100',
+        meals: 'bg-orange-100',
+        project: 'bg-indigo-100',
+        routine: 'bg-gray-100',
+        sleep: 'bg-blue-100',
+        leisure: 'bg-pink-100'
+    };
+
+
+    const schedule: Schedule = {
         Monday: [
             { time: '5:30-6:00', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
             { time: '6:00-7:00', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
@@ -120,17 +171,7 @@ const WeeklySchedule = () => {
         ]
     };
 
-    const activityColors = {
-        class: 'bg-green-200',
-        study: 'bg-yellow-100',
-        work: 'bg-purple-100',
-        workout: 'bg-red-100',
-        meals: 'bg-orange-100',
-        project: 'bg-indigo-100',
-        routine: 'bg-gray-100',
-        sleep: 'bg-blue-100',
-        leisure: 'bg-pink-100'
-    };
+
 
     return (
         <div className="w-full max-w-6xl mx-auto p-4">
@@ -141,22 +182,25 @@ const WeeklySchedule = () => {
                 </CardHeader>
                 <CardContent>
                     {/* Legend */}
+                    // First, let's modify how we use ActivityTypes in our legend rendering:
+
                     <div className="flex flex-wrap gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
-                        {Object.entries(activityColors).map(([type, color]) => (
+                        {(Object.entries(activityColors) as [ActivityType, string][]).map(([type, color]) => (
                             <div key={type} className="flex items-center">
                                 <div className={`w-4 h-4 ${color} mr-2 rounded`}></div>
-                                <span className="capitalize">{type}</span>
+                                {/* Use ActivityTypes to display proper formatted names */}
+                                <span className="capitalize">{ActivityTypes[type]}</span>
                             </div>
                         ))}
                     </div>
 
-                    {/* Schedule - Displaying days in order */}
+                    {/* Schedule */}
                     <div className="space-y-8">
-                        {days.map(day => (
+                        {days.map((day: DayOfWeek) => (
                             <div key={day} className="border rounded-lg p-4 shadow-sm">
                                 <h3 className="text-xl font-bold mb-4 text-gray-800">{day}</h3>
                                 <div className="grid grid-cols-1 gap-2">
-                                    {schedule[day]?.map((activity, index) => (
+                                    {schedule[day].map((activity: Activity, index: number) => (
                                         <div
                                             key={index}
                                             className={`${activityColors[activity.type]} p-2 rounded flex justify-between items-center`}
@@ -164,7 +208,9 @@ const WeeklySchedule = () => {
                                             <span className="font-medium w-24">{activity.time}</span>
                                             <span className="flex-grow px-4">{activity.activity}</span>
                                             {activity.details && (
-                                                <span className="text-sm text-gray-600 hidden md:inline">{activity.details}</span>
+                                                <span className="text-sm text-gray-600 hidden md:inline">
+                                                    {activity.details}
+                                                </span>
                                             )}
                                         </div>
                                     ))}
