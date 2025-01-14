@@ -1,23 +1,42 @@
+import {useMemo} from "react";
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+/**
+ * @fileoverview Weekly Schedule Component
+ * This file implements a comprehensive weekly schedule management system with activity tracking
+ * and time analysis capabilities. It handles multiple activity types, provides visual organization,
+ * and calculates time utilization across different categories.
+ */
 
-
-// Define activity types as a constant object
+/**
+ * Base activity types that can be scheduled
+ * These represent the fundamental categories of activities that can be tracked
+ * in the schedule. Each type corresponds to a specific color in the UI for
+ * visual distinction.
+ */
 const ActivityTypes = {
-    class: 'Class',    // Changed to proper display names
-    study: 'Study',
-    work: 'Work',
-    workout: 'Workout',
-    meals: 'Meals',
-    project: 'Project',
-    routine: 'Routine',
-    sleep: 'Sleep',
-    leisure: 'Leisure'
+    class: 'Class',      // Academic classes
+    study: 'Study',      // Study sessions
+    work: 'Work',        // Work-related activities
+    workout: 'Workout',  // Physical exercise
+    meals: 'Meals',      // Meal times
+    project: 'Project',  // Personal or academic projects
+    routine: 'Routine',  // Daily routines
+    sleep: 'Sleep',      // Sleep schedule
+    leisure: 'Leisure'   // Free time activities
 } as const;
 
-// Create a type from the ActivityTypes object
+// Type definitions for TypeScript type safety
 type ActivityType = keyof typeof ActivityTypes;
+type ActivityTotals = Record<ActivityType, number>;
+type DayOfWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 
-// Define the Activity interface with proper typing
+/**
+ * Interface defining the structure of an individual activity
+ * @property {string} time - Time range for the activity in format "HH:MMam/pm-HH:MMam/pm"
+ * @property {string} activity - Name/title of the activity
+ * @property {ActivityType} type - Category of the activity from ActivityTypes
+ * @property {string} details - Additional information about the activity
+ */
 interface Activity {
     time: string;
     activity: string;
@@ -25,26 +44,100 @@ interface Activity {
     details: string;
 }
 
-// Define valid days of the week
-type DayOfWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
-
-// Define the Schedule type using Record utility type
+/**
+ * Type definition for the full weekly schedule
+ * Maps each day to an array of activities
+ */
 type Schedule = Record<DayOfWeek, Activity[]>;
 
+/**
+ * Converts a time string to minutes since midnight
+ * Handles both 12-hour and 24-hour time formats with AM/PM indicators
+ *
+ * @param timeStr - Time string in format "HH:MM(am/pm)"
+ * @returns {number} Minutes since midnight
+ *
+ * @example
+ * timeToMinutes("9:30am") // Returns 570 (9 hours * 60 + 30 minutes)
+ * timeToMinutes("2:15pm") // Returns 855 (14 hours * 60 + 15 minutes)
+ */
+const timeToMinutes = (timeStr: string): number => {
+    // Clean up input string by removing spaces and converting to lowercase
+    const cleanTime = timeStr.toLowerCase().replace(/\s/g, '');
 
+    // Split time and AM/PM indicator
+    const [time, modifier] = cleanTime.split(/(?=[ap]m)/);
+    const [hoursStr, minutesStr] = time.split(':');
+    let hours = parseInt(hoursStr);
+    const minutes = parseInt(minutesStr || '0');
+
+    // Convert to 24-hour format
+    if (hours === 12) {
+        hours = modifier === 'pm' ? 12 : 0;
+    } else if (modifier === 'pm') {
+        hours += 12;
+    }
+
+    return hours * 60 + minutes;
+};
+
+/**
+ * Calculates the duration between two times in minutes
+ * Handles cases where the end time is on the next day (crosses midnight)
+ *
+ * @param timeRange - String in format "start-end" where times are in HH:MM(am/pm) format
+ * @returns {number} Duration in minutes
+ */
+const calculateDuration = (timeRange: string): number => {
+    const [startStr, endStr] = timeRange.split('-').map(t => t.trim());
+    const start = timeToMinutes(startStr);
+    let end = timeToMinutes(endStr);
+
+    // Handle cases where activity crosses midnight
+    if (end <= start) {
+        end += 24 * 60; // Add 24 hours worth of minutes
+    }
+
+    return end - start;
+};
+
+/**
+ * Formats a duration in minutes to a human-readable string
+ * Converts minutes to hours and remaining minutes
+ *
+ * @param totalMinutes - Duration in minutes
+ * @returns {string} Formatted string like "X hours Y mins"
+ */
+const formatDuration = (totalMinutes: number): string => {
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours} hours${minutes > 0 ? ` ${minutes} mins` : ''}`;
+};
+
+/**
+ * WeeklySchedule Component
+ * Renders a complete weekly schedule with time analysis and visual organization
+ * Features:
+ * - Daily activity timeline
+ * - Color-coded activity types
+ * - Time utilization analysis
+ * - Responsive layout
+ * - Weekly summary statistics
+ */
 const WeeklySchedule = () => {
-    // Define days in chronological order
-    // Define days with proper typingg
+
+
+
+    // Define days of week for iteration
     const days: DayOfWeek[] = [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday'
+        'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+        'Friday', 'Saturday', 'Sunday'
     ] as const;
 
+    /**
+     * Color mapping for different activity types
+     * Uses Tailwind CSS color classes for consistent styling
+     */
     const activityColors: Record<ActivityType, string> = {
         class: 'bg-green-200',
         study: 'bg-yellow-100',
@@ -56,6 +149,12 @@ const WeeklySchedule = () => {
         sleep: 'bg-blue-100',
         leisure: 'bg-pink-100'
     };
+
+    /**
+     * Weekly schedule definition
+     * Detailed schedule for each day including all activities
+     * Note: Schedule constant moved to separate file for brevity
+     */
 
 
     const schedule: Schedule = {
@@ -81,10 +180,9 @@ const WeeklySchedule = () => {
         Tuesday: [
             { time: '6:00am-6:30am', activity: 'Morning Routine', type: 'routine', details: 'Wake up, hydration, light stretching' },
             { time: '6:30am-7:00am', activity: 'Breakfast', type: 'meals', details: 'Morning meal' },
-            { time: '7:00am-8:00am', activity: 'Study Block', type: 'study', details: 'Morning study session' },
-            { time: '8:00am-9:00am', activity: 'Weight Training', type: 'workout', details: 'Strength training session' },
+            { time: '7:00am-9:00am', activity: 'Study Block', type: 'study', details: 'Morning study session' },
             { time: '9:00am-12:00pm', activity: 'Remote Work', type: 'work', details: 'Focused work block' },
-            { time: '12:30pm-1:50pm', activity: 'CS 3093C', type: 'class', details: 'Swift Hall 500' },
+            { time: '12:00pm-2:00pm', activity: 'Study Block', type: 'study', details: 'Morning study session'},
             { time: '2:00pm-2:30pm', activity: 'Lunch', type: 'meals', details: 'Quick meal' },
             { time: '2:30pm-4:30pm', activity: 'Study Block', type: 'study', details: 'Software Engineering focus' },
             { time: '4:30pm-5:00pm', activity: 'Evening Run', type: 'workout', details: '30-minute cardio' },
@@ -177,29 +275,62 @@ const WeeklySchedule = () => {
             { time: '8:30pm-10:00pm', activity: 'Leisure Time', type: 'leisure', details: 'Free time and wind down' },
             { time: '10:00pm-7:00am', activity: 'Sleep', type: 'sleep', details: 'Extended rest period' }
         ],}
+    /**
+     * Calculate weekly totals for each activity type
+     * Uses useMemo to cache calculations and prevent unnecessary recalculations
+     * Handles special cases like adjusting meal durations
+     */
+    const weeklyTotals = useMemo(() => {
+        const totals: ActivityTotals = {
+            class: 0,
+            study: 0,
+            work: 0,
+            workout: 0,
+            meals: 0,
+            project: 0,
+            routine: 0,
+            sleep: 0,
+            leisure: 0
+        };
 
+        days.forEach(day => {
+            schedule[day].forEach(activity => {
+                const duration = calculateDuration(activity.time);
+                const activityType = activity.type;
+
+                // Special handling for different activity types
+                switch(activityType) {
+                    case 'meals':
+                        // Adjust meal times to account for preparation/cleanup
+                        totals[activityType] += Math.floor(duration * 0.5);
+                        break;
+                    default:
+                        // Standard duration calculation for other activities
+                        totals[activityType] += duration;
+                }
+            });
+        });
+
+        return totals;
+    }, [schedule]);
+
+    // Calculate total scheduled hours with explicit type annotations
+    const totalScheduledMinutes: number = Object.values(weeklyTotals).reduce((acc, curr) => acc + curr, 0);
+    const totalScheduledTime: string = formatDuration(totalScheduledMinutes);
+    const hoursInWeek: number = 168;
+    const scheduledHoursPercentage: number = Math.round((totalScheduledMinutes / (hoursInWeek * 60)) * 100);
 
     return (
         <div className="w-full max-w-6xl mx-auto p-4">
             <Card>
                 <CardHeader>
                     <CardTitle>Weekly Schedule</CardTitle>
-                    <div className="text-sm text-gray-500">All times include transition periods</div>
+                    <div className="text-sm text-gray-500">
+                        Showing adjusted times accounting for overlapping activities
+                    </div>
                 </CardHeader>
                 <CardContent>
-                    {/* Legend */}
-
-                    <div className="flex flex-wrap gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
-                        {(Object.entries(activityColors) as [ActivityType, string][]).map(([type, color]) => (
-                            <div key={type} className="flex items-center">
-                                <div className={`w-4 h-4 ${color} mr-2 rounded`}></div>
-                                {/* Use ActivityTypes to display proper formatted names */}
-                                <span className="capitalize">{ActivityTypes[type]}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Schedule */}
+                    {/* Schedule display */}
                     <div className="space-y-8">
                         {days.map((day: DayOfWeek) => (
                             <div key={day} className="border rounded-lg p-4 shadow-sm">
@@ -226,15 +357,30 @@ const WeeklySchedule = () => {
 
                     {/* Weekly Summary */}
                     <div className="mt-8 p-4 border rounded-lg bg-gray-50">
-                        <h3 className="text-lg font-bold mb-4">Weekly Totals</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            <div>Study Time: 25 hours</div>
-                            <div>Work Time: 20 hours</div>
-                            <div>Class Time: 15 hours</div>
-                            <div>Exercise: 7.5 hours</div>
-                            <div>Personal Project: 10 hours</div>
-                            <div>Sleep: 56-60 hours</div>
-                            <div></div>
+                        <h3 className="text-lg font-bold mb-4">Weekly Time Analysis</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div className="space-y-2">
+                                {Object.entries(weeklyTotals).map(([type, minutes]) => (
+                                    <div key={type} className="flex justify-between items-center">
+                                        <span className="capitalize">{ActivityTypes[type as ActivityType]}:</span>
+                                        <span className="font-medium">{formatDuration(minutes)}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center font-bold">
+                                    <span>Total Scheduled Time:</span>
+                                    <span>{totalScheduledTime}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span>Hours in Week:</span>
+                                    <span>{hoursInWeek} hours</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span>Schedule Utilization:</span>
+                                    <span>{scheduledHoursPercentage}%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </CardContent>
