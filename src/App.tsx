@@ -297,7 +297,7 @@ const WeeklySchedule = () => {
                         totals[activityType] += Math.floor(duration * 0.5);
                         break;
                     default:
-                        // Standard duration calculation for other activities
+                        // Standard duration calculation for other activitiess
                         totals[activityType] += duration;
                 }
             });
